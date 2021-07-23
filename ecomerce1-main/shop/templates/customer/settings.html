@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+{% include '_messages.html' %}
+{% block content %} 
+<!-- ens first -->
+<div class="container mt-5">
+    <div class="row">
+        {% if current_user.is_authenticated %}
+        <div class="col-lg-4 pb-5">
+            <!-- Account Sidebar-->
+            <div class="author-card pb-3">
+                <!-- <div class="author-card-cover" style="background-image: url(https://demo.createx.studio/createx-html/img/widgets/author/cover.jpg);"><a class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward points to spend"></a></i>&nbsp;</a></div> -->
+                <div class="author-card-profile"></div>
+                    <div class="author-card-avatar" ><img src="{{url_for('static',filename='images/'+ registers.profile)}}" alt="{{current_user.name}}" style="width: 120px;height: 135px">
+                    </div>
+                    <div class="author-card-details">
+                        <input class="form-control" id="profile" name="profile" type="file">
+                        <h5 class="author-card-name text-lg">{{current_user.name}}</h5><span class="author-card-position">Joined {{current_user.date_created.strftime('%Y-%m-%d')}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="wizard">
+                <nav class="list-group list-group-flush">
+                    <a class="list-group-item" href="#">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><i class="fe-icon-shopping-bag mr-1 text-muted"></i>
+                                <div class="d-inline-block font-weight-medium text-uppercase">Orders List</div>
+                            </div><span class="badge badge-secondary">6</span>
+                        </div>
+                    </a><a class="list-group-item active" href="#"><i class="fe-icon-user text-muted"></i>Profile Settings</a><a class="list-group-item" href="#"><i class="fe-icon-map-pin text-muted"></i>Addresses</a>
+                    <a class="list-group-item" href="#">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><i class="fe-icon-heart mr-1 text-muted"></i>
+                                <div class="d-inline-block font-weight-medium text-uppercase">My Wishlist</div>
+                            </div><span class="badge badge-secondary">3</span>
+                        </div>
+                    </a>
+                    <a class="list-group-item" href="#">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><i class="fe-icon-tag mr-1 text-muted"></i>
+                                <div class="d-inline-block font-weight-medium text-uppercase">My Tickets</div>
+                            </div><span class="badge badge-secondary">4</span>
+                        </div>
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <!-- Profile Settings-->
+        <div class="col-lg-8 pb-5">zz
+        {% from "_formhelpers.html" import render_field %}
+            <form class="row" method="POST" action="" enctype="multipart/form-data" >
+                <div class="col-md-6">
+                    <div class="form-group">
+            
+                        {{ render_field(form.name,class="form-control") }}
+                        <!-- <input class="form-control" name="name" type="text" id="account-fn" value="{{current_user.name}}" required=""> -->
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ render_field(form.username,class="form-control") }}
+                        <!-- <input class="form-control" type="text" name="username" id="account-ln" value="{{ current_user.username }}" required=""> -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ render_field(form.email,class="form-control") }}
+                        <!-- <input class="form-control" name="email" type="email" id="account-email" value="{{ current_user.email }}"> -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ render_field(form.contact,class="form-control") }}
+                        <!-- <input class="form-control" type="text" name="phone" id="account-phone" value="{{ current_user.contact }}" required=""> -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ render_field(form.password,class="form-control") }}
+                        <!-- <input class="form-control" name="newpassword" type="password" id="account-pass"> -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ render_field(form.confirm,class="form-control") }}
+                        <!-- <input class="form-control" name="confirmpassword" type="password" id="account-confirm-pass"> -->
+                    </div>
+                </div>
+                <div class="col-12">
+                    <hr class="mt-2 mb-3">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="custom-control custom-checkbox d-block">
+                            <input class="custom-control-input" type="checkbox" id="subscribe_me" checked="">
+                            <!-- <label class="custom-control-label" for="subscribe_me">Subscribe me to Newsletter</label> -->
+                        </div>
+                       
+                        <a href="{{url_for('customer_settings_update',id=registers.id)}}" class="btn btn-style-1 btn-primary" type="submit" data-toast="" data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Update Profile</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
