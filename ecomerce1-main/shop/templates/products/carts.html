@@ -6,8 +6,8 @@
     <div class="row">
       <div class="col-md-12">
         <table class="table table-sm">
-            <thead>
-                <th>Sr</th>
+            <thead class="text-white">
+                <th>id</th>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Color</th>
@@ -18,7 +18,7 @@
                 <th>Update</th>
                 <th>Delete</th>
             </thead>
-            <tbody>
+            <tbody class="text-white">
                 {% for key, product in session['shoppcart'].items() %}
                 {% set discount = "%0.2f" |format((product.discount|int/100) * product.price|float) %}
                 <tr>
@@ -52,12 +52,12 @@
                 {% endfor %}
             </tbody>
             </table>
-                <table class="table table-sm">
+                <table class="table table-sm text-white">
                 <tr>
                     <td> <a href="{{url_for('get_order')}}" class="btn btn-success" >order now</a> </td>
                     <td width="35%"></td>
-                    <td colspan="3"><h4>Tax: ${{tax}}</h4></td>
-                    <td colspan="4"><h4>Grand total: ${{grandtotal}}</h4></td>
+                    <td colspan="3"><h4>Tax: {{tax}} $</h4></td>
+                    <td colspan="4"><h4>ჯამი: {{grandtotal}} $</h4></td>
                     <td><a href="{{url_for('clearcart')}}" class="btn btn-danger btn-sm float-right mr-4">Clear cart</a></td>
                 </tr>
         </table>

@@ -2,206 +2,151 @@
 {% block content %} 
 {% include "navbar.html" %}
 
-<div class="container">
-  <div class="d-flex justify-content-between flex-wrap main-wrapper">
-    {% if brand %}
-    {% for bra in brand.items %}
-      <div class="col-md-3 col-sm-6">
-          <div class="product-grid2">
-              <div class="product-image2">
-                  <a href="{{url_for('single_page',id=bra.id)}}">
-                      <img class="pic-1" src="{{url_for('static', filename='images/' + bra.image_1)}}">
-                      <img class="pic-2" src="{{url_for('static', filename='images/' + bra.image_2)}}">
-                  </a>
-                  <ul class="social">
-                      <li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
-                      <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                      <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                  </ul>
-                   <form action="{{url_for('Addcart')}}" method="POST">
-                <input type="hidden" name="product_id" value="{{bra.id}}">
-                <button type="submit" class="add-to-cart">add to cart</button>
-                <input type="hidden" name="quantity" id="" value="1" min="1" max="{{bra.stock}}">
-                {% set colors = bra.color.split(',') %}
-                <select name="colors" id="colors" style="visibility: hidden;">
-                  {% for color in colors %}   
-                  {% set col = color.split(':') %}
-                  <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
-                  {% endfor %}
-                </select>
-              </form>
-               <!-- <a class="add-to-cart" href="">Add to cart</a> -->
-              </div>
-              <div class="product-content">
-                  <h3 class="title"><a href="#">{{bra.name}}</a></h3>
-                  <span class="price">price:{{ bra.price }}</span>
-              </div>
-          </div>
-      </div>
-      {% endfor %}
-    <div class="row">
-      <div class="col text-center">
-        {% if brand.has_prev %}
-        <a href="{{ url_for('get_brand', id=get_br.id,page=brand.prev_num)}}" class="btn btn-outline-info btn-sm mt-3">Previus</a>
-        {% endif %}
-        {% if brand.total>8 %}
-        {% for page_num in brand.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
-        {% if page_num %}
-        {% if brand.page==page_num %}
-        <a href="{{ url_for('get_brand',id=get_br.id,page=page_num)}}" class="btn btn-info btn-sm mt-3">{{page_num}}</a>
-        {% else %}
-        <a href="{{ url_for('get_brand',id=get_br.id,page=page_num)}}" class="btn btn-outline-info btn-sm mt-3">{{page_num}}</a>
-        {% endif %}
-        {% else %}
-        ...
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-        {% if brand.has_next %}
-        <a href="{{ url_for('get_brand',id=get_br.id,page=brand.next_num)}}" class="btn btn-outline-info btn-sm mt-3">Next</a>
-        {% endif %}
-
-      </div>
-    </div>
-    <div class="row">
-      {% elif get_cat_prod %}
-      {% for get_cat in get_cat_prod.items %}
+<section class="bg5">
+  <div class="container">
+    <div class="d-flex justify-content-center flex-column flex-wrap main-wrapper">
+      <iframe class="login-iframe" frameborder='0' noresize='noresize' src="{{ iframe }}" frameborder="0"></iframe>
+      <!-- <span class="close-login-modal">x</span> -->
+      <!-- <iframe class="register-iframe" frameborder='0' noresize='noresize' src="{{ iframeReg }}" frameborder="0"></iframe> -->
+      {% if brand %}
+      {% for bra in brand.items %}
         <div class="col-md-3 col-sm-6">
             <div class="product-grid2">
                 <div class="product-image2">
-                    <a href="{{url_for('single_page',id=get_cat.id)}}">
-                        <img class="pic-1" src="{{url_for('static', filename='images/' + get_cat.image_1)}}">
-                        <img class="pic-2" src="{{url_for('static', filename='images/' + get_cat.image_2)}}">
+                    <a href="{{url_for('single_page',id=bra.id)}}">
+                        <img class="pic-1" src="{{url_for('static', filename='images/' + bra.image_1)}}">
+                        <img class="pic-2" src="{{url_for('static', filename='images/' + bra.image_2)}}">
                     </a>
                     <ul class="social">
                         <li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
                         <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
                         <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
-                     <form action="{{url_for('Addcart')}}" method="POST">
-                  <input type="hidden" name="product_id" value="{{get_cat.id}}">
-                  <button type="submit" class="add-to-cart">add to cart</button>
-                  <input type="hidden" name="quantity" id="" value="1" min="1" max="{{get_cat.stock}}">
-                  {% set colors = get_cat.color.split(',') %}
-                  <select name="colors" id="colors" style="visibility: hidden;">
-                    {% for color in colors %}   
-                    {% set col = color.split(':') %}
-                    <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
-                    {% endfor %}
-                  </select>
-                </form>
-                 <!-- <a class="add-to-cart" href="">Add to cart</a> -->
-                </div>
-                <div class="product-content">
-                    <h3 class="title"><a href="#">{{get_cat.name}}</a></h3>
-                    <span class="price">price:{{ get_cat.price }}</span>
-                </div>
-            </div>
-        </div>
-      <!-- <div class="col-md-3 mt-3">
-        <div class="card">
-            <img src="{{url_for('static', filename='images/' + get_cat.image_1)}}" alt="{{get_cat.name}}" class="card-img-top" height="200">
-            <div class="card-body">
-                {% if get_cat.discount|int >0 %}
-                <h5 style="text-shadow: 1px 1px 2px #000;color: #f00; transform: rotate(-15deg);position: absolute;
-                 top: 20%;left: 20%; ">Discount {{ get_cat.discount }}%</h5>
-                {% endif %}
-                <h5 class="text-center">{{ get_cat.name }}</h5>
-                <p class="text-center">price:{{ get_cat.price }}</p>
-            </div>
-            <div class="card-footer">
-                <a href="{{url_for('single_page',id=get_cat.id)}}" class="float-left btn btn-sm btn-primary">details</a>
-                <form action="{{url_for('Addcart')}}" method="POST">
-                  <input type="hidden" name="product_id" value="{{get_cat.id}}">
-                  <button type="submit" class="btn btn-sm btn-warning float-right">add to cart</button>
-                  <input type="hidden" name="quantity" id="" value="1" min="1" max="{{get_cat.stock}}">
-                  {% set colors = get_cat.color.split(',') %}
-                  <select name="colors" id="colors" style="visibility: hidden;">
-                    {% for color in colors %}   
-                    {% set col = color.split(':') %}
-                    <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
-                    {% endfor %}
-                  </select>
-                </form>
-
-            </div>
-        </div>
-     </div> -->
-
-      {% endfor %}
-    </div>
-
-    <div class="row">
-      <div class="col text-center">
-        {% if get_cat_prod.has_prev %}
-        <a href="{{ url_for('get_category', id=get_cat.id,page=get_cat_prod.prev_num)}}" class="btn btn-outline-info btn-sm mt-3">Previus</a>
-        {% endif %}
-        {% if get_cat_prod.total>8 %}
-        {% for page_num in get_cat_prod.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
-        {% if page_num %}
-        {% if get_cat_prod.page==page_num %}
-        <a href="{{ url_for('get_category',id=get_cat.id,page=page_num)}}" class="btn btn-info btn-sm mt-3">{{page_num}}</a>
-        {% else %}
-        <a href="{{ url_for('get_category',id=get_cat.id,page=page_num)}}" class="btn btn-outline-info btn-sm mt-3">{{page_num}}</a>
-        {% endif %}
-        {% else %}
-        
-        ...
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-        {% if get_cat_prod.has_next %}
-        <a href="{{ url_for('get_category',id=get_cat.id,page=get_cat_prod.next_num)}}" class="btn btn-outline-info btn-sm mt-3">Next</a>
-        {% endif %}
-
-      </div>
-    </div>
-
-    <div class="row">
-      {% else %}
-        {% for product in products.items %}
-        <div class="mt-3">
-            <div class="main-card position-relative">
-                <img src="{{url_for('static', filename='images/' + product.image_1)}}" alt="{{product.name}}" class="card-img-top" height="200">
-                <div class="main-card-body">
-                    {% if product.discount|int >0 %}
-                    <h5 class="main-card-discount mb-0">ფასდაკლება {{ product.discount }}%</h5>
-                    {% endif %}
-                    <h5 class="text-center">{{ product.name }}</h5>
-                    <p class="text-center mb-0">ფასი :{{  product.price }} ლ</p>
-                </div>
-                <div class="main-card-footer">
-                    <a href="{{url_for('single_page',id=product.id)}}" class="btn btn-sm btn-primary">დეტალურად</a>
                     <form action="{{url_for('Addcart')}}" method="POST">
-                      <input type="hidden" name="product_id" value="{{product.id}}">
-                      <button type="submit" class="btn btn-sm btn-warning w-100 mt-1">კალათაში დამატება</button>
-                      <input type="hidden" name="quantity" id="" value="1" min="1" max="{{product.stock}}">
-                      {% set colors = product.color.split(',') %}
-                      <select name="colors" id="colors" style="visibility: hidden;">
-                        {% for color in colors %}
-                        {% set col = color.split(':') %}
-                        <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
-                        {% endfor %}
-                      </select>
+                  <input type="hidden" name="product_id" value="{{bra.id}}">
+                  <button type="submit" class="add-to-cart">add to cart</button>
+                  <input type="hidden" name="quantity" id="" value="1" min="1" max="{{bra.stock}}">
+                  {% set colors = bra.color.split(',') %}
+                  <select name="colors" id="colors" style="visibility: hidden;">
+                    {% for color in colors %}   
+                    {% set col = color.split(':') %}
+                    <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
+                    {% endfor %}
+                  </select>
                     </form>
-                </div>
+                 <!-- <a class="add-to-cart" href="">Add to cart</a> -->
+                  </div>
+              <div class="product-content">
+                  <h3 class="title"><a href="#">{{bra.name}}</a></h3>
+                  <span class="price">price:{{ bra.price }}</span>
+              </div>
             </div>
+
+        {% endfor %}
+      <!-- <div class="row">
+        <div class="col text-center">
+          {% if brand.has_prev %}
+          <a href="{{ url_for('get_brand', id=get_br.id,page=brand.prev_num)}}" class="btn btn-outline-info btn-sm mt-3">Previus</a>
+          {% endif %}
+          {% if brand.total>8 %}
+          {% for page_num in brand.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+          {% if page_num %}
+          {% if brand.page==page_num %}
+          <a href="{{ url_for('get_brand',id=get_br.id,page=page_num)}}" class="btn btn-info btn-sm mt-3">{{page_num}}</a>
+          {% else %}
+          <a href="{{ url_for('get_brand',id=get_br.id,page=page_num)}}" class="btn btn-outline-info btn-sm mt-3">{{page_num}}</a>
+          {% endif %}
+          {% else %}
+          ...
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+          {% if brand.has_next %}
+          <a href="{{ url_for('get_brand',id=get_br.id,page=brand.next_num)}}" class="btn btn-outline-info btn-sm mt-3">Next</a>
+          {% endif %}
+  
         </div>
+      </div> -->
+      <div class="row">
+        {% elif get_cat_prod %}
+        {% for get_cat in get_cat_prod.items %}
+          <div class="col-md-3 col-sm-6">
+              <div class="product-grid2">
+                  <div class="product-image2">
+                      <a href="{{url_for('single_page',id=get_cat.id)}}">
+                          <img class="pic-1" src="{{url_for('static', filename='images/' + get_cat.image_1)}}">
+                          <img class="pic-2" src="{{url_for('static', filename='images/' + get_cat.image_2)}}">
+                      </a>
+                      <ul class="social">
+                          <li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                          <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+                          <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                      </ul>
+                       <form action="{{url_for('Addcart')}}" method="POST">
+                    <input type="hidden" name="product_id" value="{{get_cat.id}}">
+                    <button type="submit" class="add-to-cart">add to cart</button>
+                    <input type="hidden" name="quantity" id="" value="1" min="1" max="{{get_cat.stock}}">
+                    {% set colors = get_cat.color.split(',') %}
+                    <select name="colors" id="colors" style="visibility: hidden;">
+                      {% for color in colors %}   
+                      {% set col = color.split(':') %}
+                      <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
+                      {% endfor %}
+                    </select>
+                  </form>
+                   <!-- <a class="add-to-cart" href="">Add to cart</a> -->
+                  </div>
+                  <div class="product-content">
+                      <h3 class="title"><a href="#">{{get_cat.name}}</a></h3>
+                      <span class="price">price:{{ get_cat.price }}</span>
+                  </div>
+              </div>
+          </div>
+        <!-- <div class="col-md-3 mt-3">
+          <div class="card">
+              <img src="{{url_for('static', filename='images/' + get_cat.image_1)}}" alt="{{get_cat.name}}" class="card-img-top" height="200">
+              <div class="card-body">
+                  {% if get_cat.discount|int >0 %}
+                  <h5 style="text-shadow: 1px 1px 2px #000;color: #f00; transform: rotate(-15deg);position: absolute;
+                   top: 20%;left: 20%; ">Discount {{ get_cat.discount }}%</h5>
+                  {% endif %}
+                  <h5 class="text-center">{{ get_cat.name }}</h5>
+                  <p class="text-center">price:{{ get_cat.price }}</p>
+              </div>
+              <div class="card-footer">
+                  <a href="{{url_for('single_page',id=get_cat.id)}}" class="float-left btn btn-sm btn-primary">details</a>
+                  <form action="{{url_for('Addcart')}}" method="POST">
+                    <input type="hidden" name="product_id" value="{{get_cat.id}}">
+                    <button type="submit" class="btn btn-sm btn-warning float-right">add to cart</button>
+                    <input type="hidden" name="quantity" id="" value="1" min="1" max="{{get_cat.stock}}">
+                    {% set colors = get_cat.color.split(',') %}
+                    <select name="colors" id="colors" style="visibility: hidden;">
+                      {% for color in colors %}   
+                      {% set col = color.split(':') %}
+                      <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
+                      {% endfor %}
+                    </select>
+                  </form>
+  
+              </div>
+          </div>
+       </div> -->
+  
         {% endfor %}
       </div>
-      
+  
       <div class="row">
         <div class="col text-center">
-          {% if products.has_prev %}
-          <a href="{{ url_for('home',page=products.prev_num)}}" class="btn btn-outline-info btn-sm mt-3">Previus</a>
+          {% if get_cat_prod.has_prev %}
+          <a href="{{ url_for('get_category', id=get_cat.id,page=get_cat_prod.prev_num)}}" class="btn btn-outline-info btn-sm mt-3">Previus</a>
           {% endif %}
-          {% if products.total>8 %}
-          {% for page_num in products.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+          {% if get_cat_prod.total>8 %}
+          {% for page_num in get_cat_prod.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
           {% if page_num %}
-          {% if products.page==page_num %}
-          <a href="{{ url_for('home',page=page_num)}}" class="btn btn-info btn-sm mt-3">{{page_num}}</a>
+          {% if get_cat_prod.page==page_num %}
+          <a href="{{ url_for('get_category',id=get_cat.id,page=page_num)}}" class="btn btn-info btn-sm mt-3">{{page_num}}</a>
           {% else %}
-          <a href="{{ url_for('home',page=page_num)}}" class="btn btn-outline-info btn-sm mt-3">{{page_num}}</a>
+          <a href="{{ url_for('get_category',id=get_cat.id,page=page_num)}}" class="btn btn-outline-info btn-sm mt-3">{{page_num}}</a>
           {% endif %}
           {% else %}
           
@@ -209,14 +154,83 @@
           {% endif %}
           {% endfor %}
           {% endif %}
-          {% if products.has_next %}
-          <a href="{{ url_for('home',page=products.next_num)}}" class="btn btn-outline-info btn-sm mt-3">Next</a>
+          {% if get_cat_prod.has_next %}
+          <a href="{{ url_for('get_category',id=get_cat.id,page=get_cat_prod.next_num)}}" class="btn btn-outline-info btn-sm mt-3">Next</a>
           {% endif %}
-
+  
         </div>
       </div>
-      {% endif %}
-    </div>
-</div>
+  
+
+        {% else %}
+          {% for product in products.items %}
+          
+          <div class="mt-3">
+              <div class="main-card position-relative transparent-rgba-8 d-flex justify-content-between align-items-start">
+                <img src="{{url_for('static', filename='images/' + product.image_1)}}" alt="{{product.name}}" class="card-img-top my-shadow">
+                  <div class="main-card-body p-3">
+                      {% if product.discount|int >0 %}
+                      <h5 class="main-card-discount mb-0">ფასდაკლება {{ product.discount }}%</h5>
+                      {% endif %}
+                      <h5 class="text-center text-white">{{ product.name }}</h5>
+                      <p class="product-desc text-white mt-4"> <span style = "margin-left: 10px;"></span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat placeat laborum nostrum sequi temporibus, aperiam, quaerat sit, in voluptates sapiente numquam modi. Suscipit aut aliquid, vero consectetur accusamus libero nisi! Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat placeat laborum nostrum sequi temporibus, aperiam, quaerat sit, in voluptates sapiente numquam modi. Suscipit aut aliquid, vero consectetur accusamus libero nisi!</p>
+                      <p class="text-center text-white mb-0 main-product-price">ფასი :{{  product.price }} ლ</p>
+                  </div>
+                  <div class="main-card-footer">
+                      <form class="d-block position-relative me-2" action="{{url_for('Addcart')}}" method="POST">
+                        <input type="hidden" name="product_id" value="{{product.id}}">
+                        <button type="submit" class="btn btn-outline-light w-100 my-opacity-8 my-border">კალათაში
+                        </button>
+                        <input type="hidden" name="quantity" id="" value="1" min="1" max="{{product.stock}}">
+                        {% set colors = product.color.split(',') %}
+                        <select class="d-none" name="colors" id="colors" style="visibility: hidden;">
+                          {% for color in colors %}
+                          {% set col = color.split(':') %}
+                          <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
+                          {% endfor %}
+                        </select>
+                      </form>
+                      <a href="{{url_for('single_page',id=product.id)}}" class="btn btn-outline-light my-opacity-8 d-block my-border">დეტალურად</a>
+                  </div>
+                  <div class="heart-icon">
+                    <span class="heart-counter">0</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                    </svg>
+                  </div>
+                  </div>
+              </div>
+          {% endfor %}
+        </div>
+        
+        <div class="row">
+          <div class="col text-center text-white">
+            {% if products.has_prev %}
+            <a href="{{ url_for('home',page=products.prev_num)}}" class="btn btn-outline-light btn-sm mt-3">Previus</a>
+            {% endif %}
+            {% if products.total>8 %}
+            {% for page_num in products.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+            {% if page_num %}
+            {% if products.page==page_num %}
+            <a href="{{ url_for('home',page=page_num)}}" class="btn btn-outline-light btn-sm mt-3">{{page_num}}</a>
+            {% else %}
+            <a href="{{ url_for('home',page=page_num)}}" class="btn btn-outline-light btn-sm mt-3">{{page_num}}</a>
+            {% endif %}
+            {% else %}
+            
+            ...
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% if products.has_next %}
+            <a href="{{ url_for('home',page=products.next_num)}}" class="btn btn-outline-light btn-sm mt-3">Next</a>
+            {% endif %}
+  
+          </div>
+        </div>
+        {% endif %}
+  </div>
+</section>
+
 
 {% endblock content %}

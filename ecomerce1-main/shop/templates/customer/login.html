@@ -1,23 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="text-center h1 text-wite bg-primary p-2">Login</div>
-<div class="continer">
+
+
+
+<div class="login-wrapper">
+<div class="login-title">Login</div>
+<div class="login-container">
   {% from "_formhelpers.html" import render_field %}
-  <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        {% include '_messages.html' %}
-<form method = "POST" enctype="multipart/form-data">
-  {{ form.csrf_token }}
   <div>
-    {{ render_field(form.email,class="form-control") }}
-    {{ render_field(form.password,class="form-control") }}
-  </div>
-  <p><input type='submit' value='Login' class="btn btn-info mt-2"></p>
-</form>
+      <div>
+        {% include '_messages.html' %}
+        <form method = "POST" enctype="multipart/form-data">
+          {{ form.csrf_token }}
+          <div class="text-white">
+            {{ render_field(form.email,class="form-control mb-4", placeholder="მომხმარებლის ელ ფოსტა") }}
+            {{ render_field(form.password,class="form-control", placeholder="მომხმარებლის პაროლი") }}
+          </div>
+        <p><input type='submit' value='შესვლა' class="btn btn-info mt-2"></p>
+        </form>
+      </div>
 </div>
-   <div class="col-md-4"></div>
 </div>
 </div>
 {% endblock content %}

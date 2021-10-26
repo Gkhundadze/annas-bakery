@@ -13,25 +13,133 @@ let expandMenuReceipt = document.querySelector('.receipt-expand');
 let expandMenuShop = document.querySelector('.shop-expand');
 let socialSwitcher = document.querySelector('.social-icons-switcher');
 let socialBox = document.querySelector('.social-links');
+let shopIsOpen = false;
+let accountIsOpen = false;
+let receiptIsOpen = false;
+let cart = document.querySelector('.cart')
+let cartCounter = document.querySelector('.cart-caunter')
+
+
+// LOGIN
+// const loginBtn = document.querySelector('.login-link')
+// const loginIframe = document.querySelector('.login-iframe')
+// const closeIframe = document.querySelector('close-login-modal')
+// let loginForm = document.querySelector('.login-form')
+// if(loginBtn){
+//     loginBtn.addEventListener('click', (e)=> {
+//         e.preventDefault();
+//         loginIframe.style.display = 'block'
+//         closeIframe.addEventListener('click', ()=>{
+//             alert('closed')
+//             loginIframe.style.display = 'none'
+//         })
+
+//     })
+// }
+
+
+// LOGIN
+
+
+
+// REGISTER
+// const registerBtn = document.querySelector('.register-link')
+// const registerIframe = document.querySelector('.register-iframe')
+// if(registerBtn){
+//     registerBtn.addEventListener('click', (e)=> {
+//         e.preventDefault();
+//         registerIframe.style.display = 'block'
+//         console.log('register clicked' + registerIframe);
+//     })
+// }
+
+// REGISTER
+
+
 
 // brandBtn.addEventListener('click', () => {
 //     brandsBox.classList.toggle('expanded-brand')
 // })
+if(cart){
+    cart.addEventListener('click', ()=>{
+        if(cartCounter.innerHTML == 0){
+            alert('კალათა ცარიელია')
+        }
+        
+    })
+}
+document.addEventListener('click', (e)=>{
+    if(e.target !== shop && e.target !== account && e.target !== receipt){
+        expandMenuShop.style.display = 'none';
+        shopIsOpen = false;
+        expandMenu.style.display = 'none';
+        accountIsOpen = false;
+        expandMenuReceipt.style.display = 'none';
+        receiptIsOpen = false;
+    }else{
+        if(e.target == shop){
+            if(accountIsOpen || receiptIsOpen){
+                expandMenu.style.display = 'none';
+                accountIsOpen = false;
+                expandMenuReceipt.style.display = 'none';
+                receiptIsOpen = false;
+            }
+        }
+        else if(e.target == account){
+            if(shopIsOpen || receiptIsOpen){
+                expandMenuShop.style.display = 'none';
+                shopIsOpen = false;
+                expandMenuReceipt.style.display = 'none';
+                receiptIsOpen = false;
+            }
+        }
+        else if(e.target == receipt){
+            if(shopIsOpen || accountIsOpen){
+                expandMenuShop.style.display = 'none';
+                shopIsOpen = false;
+                expandMenu.style.display = 'none';
+                accountIsOpen = false;
+            }
+        }
+    }
+})
 if(account){
     account.addEventListener('click', () => {
-        expandMenu.classList.toggle('d-block')
+        if(accountIsOpen == false){
+            expandMenu.style.display = 'block';
+            accountIsOpen = true;
+        }else{
+            expandMenu.style.display = 'none';
+            accountIsOpen = false;
+        }
     })
 }
 if(receipt){
     receipt.addEventListener('click', () => {
-        expandMenuReceipt.classList.toggle('d-block')
+        if(receiptIsOpen == false){
+            expandMenuReceipt.style.display = 'block';
+            receiptIsOpen = true;
+        }
+        else{
+            expandMenuReceipt.style.display = 'none';
+            receiptIsOpen = false;
+        }
     })
 }
 if(shop){
     shop.addEventListener('click', () => {
-        expandMenuShop.classList.toggle('d-block')
+        if(shopIsOpen == false){
+            expandMenuShop.style.display = 'block';
+            shopIsOpen = true;
+        }else{
+            expandMenuShop.style.display = 'none';
+            shopIsOpen = false;
+        }
+
+
     })
 }
+
 if(accountsBnt){
     accountsBnt.addEventListener('click', () => {
         expandMenu.style.display = 'none'
