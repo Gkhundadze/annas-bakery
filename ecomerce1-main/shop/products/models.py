@@ -36,4 +36,16 @@ class Category(db.Model):
     name=db.Column(db.String(30), nullable=False, unique=True)
 
 
-db.create_all()
+# class Images(db.Model):
+#     id=db.Column(db.Integer,primary_key=True)
+#     image=db.Column(db.String(150),nullable=False,default='image.jpg')
+
+
+# class Galey(db.Model):
+#     id=db.Column(db.Integer,primary_key=True)
+#     title = db.Column(db.String(150),nullable=False)
+#     image=db.Column(db.String(150),nullable=False,default='image.jpg')
+#     image_id = db.Column(db.Integer, db.ForeignKey('image.id'),nullable=False)
+#     category = db.relationship('Image', backref=db.backref('Galey', lazy=True))
+
+

@@ -41,6 +41,29 @@ let cartCounter = document.querySelector('.cart-caunter')
 // LOGIN
 
 
+// swiper
+const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+  
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  });
+// swiper
 
 // REGISTER
 // const registerBtn = document.querySelector('.register-link')
@@ -61,11 +84,10 @@ let cartCounter = document.querySelector('.cart-caunter')
 //     brandsBox.classList.toggle('expanded-brand')
 // })
 if(cart){
-    cart.addEventListener('click', ()=>{
+    cart.addEventListener('click', (e)=>{
         if(cartCounter.innerHTML == 0){
             alert('კალათა ცარიელია')
         }
-        
     })
 }
 document.addEventListener('click', (e)=>{

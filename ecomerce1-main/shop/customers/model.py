@@ -52,7 +52,7 @@ class CustomerOrder(db.Model):
         return '<CustomerOrder %r>'% self.invoice
 
 
-db.create_all()
+# db.create_all()
 
 
 

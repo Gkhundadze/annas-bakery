@@ -16,12 +16,12 @@
         <div class="nav-links">
           <ul class="d-flex list-unstyled m-0 align-items-center">
             <li class="nav-item relative">
-              <a class="nav-link link-secondary py-2 px-1 shop" href="#">Shop</a>
+              <a class="nav-link py-2 px-1 shop" href="#">Shop</a>
               <div class="shop-expand rounded">
                 <ul class="p-0">
-                  <li class="nav-item"><a class="text-light py-1 d-block" href="{{url_for('accessories')}}">აქსესუარები</a></li>
-                  <li class="nav-item"><a class="text-light py-1 d-block" href="{{url_for('clothes')}}">ტანსაცმელი</a></li>
-                  <li class="nav-item"><a class="text-light py-1 d-block" href="{{url_for('toys')}}">თოჯინები</a></li>
+                  <li class="nav-item"><a class="nav-link py-1 d-block" href="{{url_for('accessories')}}">აქსესუარები</a></li>
+                  <li class="nav-item"><a class="nav-link py-1 d-block" href="{{url_for('clothes')}}">ტანსაცმელი</a></li>
+                  <li class="nav-item"><a class="nav-link py-1 d-block" href="{{url_for('toys')}}">თოჯინები</a></li>
                 </ul>
                 <div class="d-flex justify-content-center">
                   <button class="bg-transparent border-0 w-100">
@@ -32,18 +32,18 @@
                 </div>
             </li>
             <li class="nav-item relative">
-              <a class="nav-link link-secondary py-2 px-1 receipt" href="#">Receipt</a>
+              <a class="nav-link py-2 px-1 receipt" href="#">Receipt</a>
               <div class="receipt-expand rounded">
                 <ul class="p-0">
-                  <li class="nav-item"><a class="text-light py-1 d-block" href="{{url_for('newReceipts')}}">ახალი რეცეპტები</a></li>
-                  <li class="nav-item"><a class="text-light py-1 d-block" href="{{url_for('healthyEat')}}">ჯანსაღი კვება</a></li>
-                  <li class="nav-item"><a class="text-light py-1 d-block" href="{{url_for('breakFast')}}">საუზმე</a></li>
-                  <li class="nav-item"><a class="text-light py-1 d-block" href="{{url_for('salads')}}">სალათები</a></li>
-                  <li class="nav-item"><a class="text-light py-1 d-block" href="{{url_for('baked')}}">ცომეული</a></li>
-                  <li class="nav-item"><a class="text-light py-1 d-block" href="{{url_for('dessert')}}">დესერტი</a></li>
-                  <li class="nav-item"><a class="text-light py-1 pb-2 d-block" href="{{url_for('babyReceipts')}}">საბავშვო რეცეპტები</a></li>
+                  <li class="nav-item"><a class="py-1 d-block nav-link" href="{{url_for('newReceipts')}}">ახალი რეცეპტები</a></li>
+                  <li class="nav-item"><a class="py-1 d-block nav-link" href="{{url_for('healthyEat')}}">ჯანსაღი კვება</a></li>
+                  <li class="nav-item"><a class="py-1 d-block nav-link" href="{{url_for('breakFast')}}">საუზმე</a></li>
+                  <li class="nav-item"><a class="py-1 d-block nav-link" href="{{url_for('salads')}}">სალათები</a></li>
+                  <li class="nav-item"><a class="py-1 d-block nav-link" href="{{url_for('baked')}}">ცომეული</a></li>
+                  <li class="nav-item"><a class="py-1 d-block nav-link" href="{{url_for('dessert')}}">დესერტი</a></li>
+                  <li class="nav-item"><a class="py-1 pb-2 d-block nav-link" href="{{url_for('babyReceipts')}}">საბავშვო რეცეპტები</a></li>
                   <li class="nav-item">
-                    <a class="text-light py-1 d-block" href="{{url_for('cookbook')}}">My Cookbook
+                    <a class="py-1 d-block nav-link" href="{{url_for('cookbook')}}">My Cookbook
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                       </svg>
@@ -60,13 +60,13 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link link-secondary py-2 px-1 " href="{{url_for('gallery')}}">Gallery</a>
+              <a class="nav-link py-2 px-1 " href="{{url_for('gallery')}}">Gallery</a>
             </li>  
             <li class="nav-item item-about">
-              <a class="nav-link link-secondary py-2 px-1 " href="{{url_for('about')}}">About us</a>
+              <a class="nav-link py-2 px-1 " href="{{url_for('about')}}">About us</a>
             </li> 
             <li class="nav-item ">
-              <a class="nav-link link-secondary py-2 px-1 " href="{{url_for('contact')}}">Contact</a>
+              <a class="nav-link py-2 px-1 " href="{{url_for('contact')}}">Contact</a>
             </li>
             <li class="nav-item relative">
               <a class="nav-link py-2 px-1 account" href="#">Accoutn <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -80,10 +80,10 @@
                     {{current_user.email}}
                   </li>
                   <li class="nav-item">
-                    <a class="text-light d-block" href="{{url_for('customer_settings_update', id=current_user.id )}}">Settings</a>
+                    <a class="d-block nav-link" href="{{url_for('customer_settings_update', id=current_user.id )}}">Settings</a>
                   </li>
                   <li class="nav-item">
-                    <a class="text-light d-block" href="{{url_for('customer_logout')}}">Log out</a>
+                    <a class="d-block nav-link" href="{{url_for('customer_logout')}}">Log out</a>
                   </li>
                 </ul>
                 <div class="d-flex justify-content-center">
@@ -97,8 +97,8 @@
                   {% else %}
                   <div class="account-expand">
                     <ul class="d-flex flex-column p-0">
-                      <li class="nav-item"><a class="text-light d-block login-link" href="{{url_for('customerLogin')}}">Login</a></li>
-                      <li class="nav-item"><a class="text-light d-block register-link" href="{{url_for('customer_register')}}">Register</a></li>
+                      <li class="nav-item"><a class="d-block nav-link login-link" href="{{url_for('customerLogin')}}">Login</a></li>
+                      <li class="nav-item"><a class="d-block nav-link register-link" href="{{url_for('customer_register')}}">Register</a></li>
                     </ul>
                   </div>
                   {% endif %}

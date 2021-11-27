@@ -2,8 +2,17 @@
 {% if messages %}
   <div class=flashes>
   {% for category, message in messages %}
-    <div class="alert alert-{{ category }}">{{ message }}</div>
+    <div class="alert alert-{{ category }}"><p class="fs-3">{{ message }}</p></div>
   {% endfor %}
   </div>
 {% endif %}
 {% endwith %}
+
+<script>
+  let alert = document.querySelector('.flashes')
+  if(alert){
+    setTimeout(()=>{
+      alert.style.display = "none"
+    }, 3000)
+  }
+</script>

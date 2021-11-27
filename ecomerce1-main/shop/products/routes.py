@@ -15,9 +15,10 @@ def categoryes():
 
 @app.route('/')
 def home():
+    title = 'Main Page'
     page=request.args.get('page',1, type=int)
     products=Addproduct.query.filter(Addproduct.stock > 0).order_by(Addproduct.id.desc()).paginate(page=page,per_page=8)
-    return render_template('products/index.html', products=products,brands=brands(),categoryes=categoryes())
+    return render_template('products/index.html', products=products,brands=brands(),categoryes=categoryes(), title = title)
     
     
 # serch query
@@ -241,55 +242,78 @@ def deleteproduct (id):
 
 @app.route('/contact')
 def contact ():
-    return render_template('products/contact.html')
+    title = 'Contact'
+    return render_template('products/contact.html', title = title)
 
 @app.route('/about')
 def about ():
-    return render_template('products/about.html')
+    title = 'About US'
+    return render_template('products/about.html', title = title)
+
 
 @app.route('/gallery')
 def gallery ():
-    return render_template('products/gallery.html')
+    id = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    title = 'Gallery'
+    return render_template('products/gallery.html', id = id, title = title)
+
+
+@app.route('/gallery/<int:id>')
+def galleryDet (id):
+    product=Addproduct.query.get_or_404(id)
+    title = 'Gallery det'
+    return render_template('products/detailed-gallery.html', id = id, title = title, product = product)
+
 
 @app.route('/accessories')
 def accessories ():
     return render_template('products/accessories.html')
 
+
 @app.route('/clothes')
 def clothes ():
     return render_template('products/clothes.html')
+
 
 @app.route('/toys')
 def toys ():
     return render_template('products/toys.html')
 
+
 @app.route('/cookbook')
 def cookbook ():
     return render_template('products/cookbook.html')
+
 
 @app.route('/new-receipts')
 def newReceipts ():
     return render_template('products/new-receipts.html')
 
+
 @app.route('/healthy-eat')
 def healthyEat ():
     return render_template('products/healthy-eat.html')
+
 
 @app.route('/breakfast')
 def breakFast ():
     return render_template('products/breakfast.html')
 
+
 @app.route('/salads')
 def salads ():
     return render_template('products/salads.html')
+
 
 @app.route('/baked')
 def baked ():
     return render_template('products/baked.html')
 
+
 @app.route('/dessert')
 def dessert ():
     return render_template('products/dessert.html')
+
 
 @app.route('/baby-receipts')
 def babyReceipts ():

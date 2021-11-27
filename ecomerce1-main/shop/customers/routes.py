@@ -13,6 +13,7 @@ except Exception as e:
 
 @app.route('/customer/register',methods=['GET','POST'])
 def customer_register():
+    title = 'Register Page'
     form = CustomerRegistrationForm()
     if form.validate_on_submit():
         hash_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8') 
@@ -33,11 +34,12 @@ def customer_register():
         flash(f'welcome {form.name.data} thenk you for registring','success')
         db.session.commit()
         return redirect(url_for('login'))
-    return render_template('customer/register.html', form=form)
+    return render_template('customer/register.html', form=form, title = title)
 
 
 @app.route('/customer/login',methods=['GET','POST'])
 def customerLogin():
+    title = 'Login Page'
     form=CustomerLoginForm()
     if form.validate_on_submit():
         user=Register.query.filter_by(email=form.email.data).first()
@@ -48,7 +50,7 @@ def customerLogin():
             return redirect(next or url_for('home'))
         flash(f'Incorect email and password','danger')
         return redirect(url_for("customerLogin"))
-    return render_template('customer/login.html',form=form)
+    return render_template('customer/login.html',form=form, title = title)
 
 
 @app.route('/customer/logout')
